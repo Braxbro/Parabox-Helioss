@@ -48,7 +48,9 @@ public class TileEntityParaboxV2 extends TileEntityParabox {
 		if (this.cycleTimeLeft <= 0) {
 			this.points += 3;
 			for (Entry<UUID, ParaboxUserData> data : WorldSpaceTimeManager.getWorldData().getUserData())
-				data.getValue().setPoints(this.points);
+				if(pList.getPlayerByUUID(data.getKey()) != null){
+					data.getValue().setPoints(this.points);
+				}
 			WorldSpaceTimeManager.saveCustomWorldData();
 			Parabox.sendMessage(TextFormatting.LIGHT_PURPLE, "info.parabox.emp.update.daily", format.format(this.getRFTNeeded()), format.format(getCycleTime() / (20D * 60)));
 			this.cycleTimeLeft = getCycleTime();
