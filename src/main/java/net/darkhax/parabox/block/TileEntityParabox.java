@@ -27,6 +27,7 @@ import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraft.server.management.PlayerList;
 
 public class TileEntityParabox extends TileEntityBasicTickable {
 
