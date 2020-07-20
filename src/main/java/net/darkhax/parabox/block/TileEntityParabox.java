@@ -89,7 +89,7 @@ public class TileEntityParabox extends TileEntityBasicTickable {
 
 	public void activate() {
 		this.active = true;
-		//WorldSpaceTimeManager.initiateWorldBackup();
+		WorldSpaceTimeManager.initiateWorldBackup();
 		this.points = 0;
 		this.cycleTimeLeft = getCycleTime();
 		this.ticksOnline = 0;
