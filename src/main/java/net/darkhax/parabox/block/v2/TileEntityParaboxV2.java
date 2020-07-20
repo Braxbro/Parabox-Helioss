@@ -15,6 +15,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 
 public class TileEntityParaboxV2 extends TileEntityParabox {
 
@@ -47,6 +48,7 @@ public class TileEntityParaboxV2 extends TileEntityParabox {
 
 		if (this.cycleTimeLeft <= 0) {
 			this.points += 3;
+			PlayerList pList = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList();
 			for (Entry<UUID, ParaboxUserData> data : WorldSpaceTimeManager.getWorldData().getUserData())
 				if(pList.getPlayerByUUID(data.getKey()) != null){
 					data.getValue().setPoints(this.points);
