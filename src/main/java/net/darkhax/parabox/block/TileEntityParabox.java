@@ -52,7 +52,7 @@ public class TileEntityParabox extends TileEntityBasicTickable {
 	@Override
 	public void onEntityUpdate() {
 		if (this.world.isRemote || !this.active) return;
-		if ((WorldSpaceTimeManager.getWorldData() == null || !WorldSpaceTimeManager.getWorldData().getBackupFile().exists()) && this.active && !WorldSpaceTimeManager.isSaving() && !WorldSpaceTimeManager.requireSaving()) {
+		if ((WorldSpaceTimeManager.getWorldData() == null && this.active && !WorldSpaceTimeManager.isSaving() && !WorldSpaceTimeManager.requireSaving()) {
 			this.deactivate();
 		}
 
@@ -89,7 +89,7 @@ public class TileEntityParabox extends TileEntityBasicTickable {
 
 	public void activate() {
 		this.active = true;
-		WorldSpaceTimeManager.initiateWorldBackup();
+		//WorldSpaceTimeManager.initiateWorldBackup();
 		this.points = 0;
 		this.cycleTimeLeft = getCycleTime();
 		this.ticksOnline = 0;
