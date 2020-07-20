@@ -26,6 +26,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 
 public class TileEntityParabox extends TileEntityBasicTickable {
 
@@ -72,8 +73,11 @@ public class TileEntityParabox extends TileEntityBasicTickable {
 
 		if (this.cycleTimeLeft <= 0) {
 			this.points++;
+			PlayerList pList = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList();
 			for (Entry<UUID, ParaboxUserData> data : WorldSpaceTimeManager.getWorldData().getUserData())
-				data.getValue().setPoints(this.points);
+				if(pList.getPlayerByUUID(data.getKey()) != null){
+					data.getValue().setPoints(this.points);
+				}
 			WorldSpaceTimeManager.saveCustomWorldData();
 			Parabox.sendMessage(TextFormatting.LIGHT_PURPLE, "info.parabox.update.daily", this.getRFTNeeded());
 			this.cycleTimeLeft = getCycleTime();
