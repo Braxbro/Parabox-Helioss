@@ -77,7 +77,7 @@ public class TileEntityParabox extends TileEntityBasicTickable {
 			PlayerList pList = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList();
 			for (Entry<UUID, ParaboxUserData> data : WorldSpaceTimeManager.getWorldData().getUserData())
 				if(pList.getPlayerByUUID(data.getKey()) != null){
-					data.getValue().setPoints(this.points);
+					data.getValue().setPoints(data.getValue.getPoints() + 1);
 				}
 			WorldSpaceTimeManager.saveCustomWorldData();
 			Parabox.sendMessage(TextFormatting.LIGHT_PURPLE, "info.parabox.update.daily", this.getRFTNeeded());
