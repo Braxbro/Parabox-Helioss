@@ -36,6 +36,7 @@ public class WorldSpaceTimeManager {
 	private static boolean isSaving = false;
 	private static boolean requireSaving = false;
 	private static boolean started = false;
+	private static boolean isCollapsing = false;
 
 	public static boolean isSaving() {
 
@@ -111,21 +112,26 @@ public class WorldSpaceTimeManager {
 			prestigeData.addPrestige(entry.getValue().getPoints());
 			GlobalPrestigeData.save(prestigeData);
 		}
-		return;
+		TileEntityParabox box = BlockParabox.getParabox(Parabox.overworld(), getWorldData().getParabox());
+		box.deactivate();
 		for (final EntityPlayerMP player : server.getMinecraftServer().getPlayerList().getPlayers()) {
-
 			player.connection.disconnect(new TextComponentString("The world is collapsing!"));
-			Parabox.proxy.onGameShutdown(server.getSaveHandler().getWorldDirectory().getName());
 		}
+		return;
+		// for (final EntityPlayerMP player : server.getMinecraftServer().getPlayerList().getPlayers()) {
 
-		if (!getWorldData().getBackupFile().exists()) {
+			// player.connection.disconnect(new TextComponentString("The world is collapsing!"));
+			// Parabox.proxy.onGameShutdown(server.getSaveHandler().getWorldDirectory().getName());
+		//}
 
-			Parabox.LOG.warn("Attempted to do a world reset, but no world backup found. This mod will not work as intended if the backup file {} is not restored.", getWorldData().getBackupFile().getPath());
-			return;
-		}
+		//if (!getWorldData().getBackupFile().exists()) {
 
-		getWorldData().setShouldDelete(true);
-		WorldHelper.shutdown();
+			//Parabox.LOG.warn("Attempted to do a world reset, but no world backup found. This mod will not work as intended if the backup file {} is not restored.", getWorldData().getBackupFile().getPath());
+			//return;
+		//}
+
+		//getWorldData().setShouldDelete(true);
+		//WorldHelper.shutdown();
 	}
 
 	private static void disableSaving() {
@@ -236,9 +242,12 @@ public class WorldSpaceTimeManager {
 			getWorldData().getBackupFile().delete();
 
 			final PlayerList playerList = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList();
-			if (playerList != null) {
+			if (playerList != null && !isCollapsing) {
 
 				playerList.sendMessage(new TextComponentTranslation("parabox.status.backup.reset"));
+			}
+			if (isCollapsing) {
+				isCollapsing = false;
 			}
 		}
 	}
