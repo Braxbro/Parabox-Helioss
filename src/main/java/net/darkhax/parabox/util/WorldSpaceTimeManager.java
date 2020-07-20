@@ -106,6 +106,11 @@ public class WorldSpaceTimeManager {
 	}
 
 	public static void triggerCollapse(WorldServer server) {
+		for (final Entry<UUID, ParaboxUserData> entry : getWorldData().getUserData()) {
+			final PlayerData prestigeData = GlobalPrestigeData.getPlayerData(entry.getKey());
+			prestigeData.addPrestige(entry.getValue().getPoints());
+			GlobalPrestigeData.save(prestigeData);
+		}
 		return;
 		for (final EntityPlayerMP player : server.getMinecraftServer().getPlayerList().getPlayers()) {
 
