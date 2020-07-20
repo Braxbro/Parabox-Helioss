@@ -52,7 +52,7 @@ public class TileEntityParaboxV2 extends TileEntityParabox {
 			PlayerList pList = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList();
 			for (Entry<UUID, ParaboxUserData> data : WorldSpaceTimeManager.getWorldData().getUserData())
 				if(pList.getPlayerByUUID(data.getKey()) != null){
-					data.getValue().setPoints(data.getValue.getPoints() + 3);
+					data.getValue().setPoints(data.getValue().getPoints() + 3);
 				}
 			WorldSpaceTimeManager.saveCustomWorldData();
 			Parabox.sendMessage(TextFormatting.LIGHT_PURPLE, "info.parabox.emp.update.daily", format.format(this.getRFTNeeded()), format.format(getCycleTime() / (20D * 60)));
