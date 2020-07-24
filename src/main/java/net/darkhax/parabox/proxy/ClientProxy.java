@@ -30,7 +30,7 @@ public class ClientProxy extends Proxy {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked") 
 	@Override
 	public void tryOpenList(Object guiListWorldEntry) {
 		Pair<WorldSummary, GuiListWorldSelectionEntry> ent = (Pair<WorldSummary, GuiListWorldSelectionEntry>) guiListWorldEntry;
