@@ -21,7 +21,7 @@ pipeline {
     stage('Deploy') {
       steps {
         withCredentials([usernamePassword(credentialsId: 'jenkinsbotnexus', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-          sh ./gradlew deploy
+          sh './gradlew deploy'
         }
       }
     }    
