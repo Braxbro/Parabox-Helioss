@@ -4,7 +4,6 @@ pipeline {
     stage('Setup') {
       steps {
         sh 'chmod +x ./gradlew'
-      }
     }
 
     stage('Build') {
@@ -18,6 +17,14 @@ pipeline {
         archiveArtifacts 'build/libs/*.jar'
       }
     }
+      
+    stage('Deploy') {
+      steps {
+        withCredentials([usernamePassword(credentialsId: 'jenkinsbotnexus', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+          sh ./gradlew deploy
+        }
+      }
+    }    
 
   }
 }
