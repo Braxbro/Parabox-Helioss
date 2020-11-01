@@ -25,7 +25,7 @@ public class TileEntityParaboxV2 extends TileEntityParabox {
 	@Override
 	public void onEntityUpdate() {
 		if (this.world.isRemote || !this.active) return;
-		if ((WorldSpaceTimeManager.getWorldData() == null || !WorldSpaceTimeManager.getWorldData().getBackupFile().exists()) && this.active && !WorldSpaceTimeManager.isSaving() && !WorldSpaceTimeManager.requireSaving()) {
+		if (WorldSpaceTimeManager.getWorldData() == null && this.active && !WorldSpaceTimeManager.isSaving() && !WorldSpaceTimeManager.requireSaving()) {
 			this.deactivate();
 		}
 
